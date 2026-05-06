@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#52796f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Feekool Español для репетиторов | Ваш личный кабинет ученика за 1 минуту</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Editorial / Warm Professional Palette */
+            --bg: #f9f7f4;
+            --bg-alt: #f1ede8;
+            --card: #ffffff;
+            --text: #1c2532;
+            --text-muted: #5a6b7c;
+            --text-light: #7a8b9c;
+            
+            --primary: #52796f;
+            --primary-dark: #354f4a;
+            --accent: #c78c6b;
+            --accent-light: #e8cbb5;
+            --highlight: #d4a373;
+            
+            --radius: 18px;
+            --radius-lg: 26px;
+            --shadow-sm: 0 2px 10px rgba(28, 37, 50, 0.06);
+            --shadow: 0 6px 24px rgba(28, 37, 50, 0.1);
+            --shadow-hover: 0 12px 32px rgba(28, 37, 50, 0.15);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --container: 1120px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: clamp(15px, 1.9vw, 16px);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 20%, rgba(199, 140, 107, 0.08) 0%, transparent 40%);
+        }
+        
+        .container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(18px, 4vw, 28px); }
+        
+        /* Header */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(249, 247, 244, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(82, 121, 111, 0.1);
+            padding: clamp(14px, 3vw, 20px) 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon {
+            width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: white; box-shadow: var(--shadow-sm);
+        }
+        .brand-text h1 {
+            font-family: 'Lora', serif; font-size: clamp(1.4rem, 3.5vw, 1.7rem); font-weight: 700;
+            color: var(--primary-dark); line-height: 1.1;
+        }
+        .brand-text p { font-size: clamp(0.8rem, 2.2vw, 0.9rem); color: var(--text-muted); margin-top: 2px; }
+        .nav-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: clamp(10px, 2.5vw, 12px) clamp(18px, 4vw, 26px); border-radius: 50px;
+            font-weight: 600; font-size: clamp(0.92rem, 2.8vw, 1rem); text-decoration: none;
+            transition: var(--transition); cursor: pointer; border: none; min-height: 44px; white-space: nowrap;
+        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-sm); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: var(--primary-dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent-light); color: var(--primary-dark); }
+        .btn-outline:hover { border-color: var(--accent); background: rgba(199, 140, 107, 0.08); transform: translateY(-1px); }
+        .btn-accent { background: var(--accent); color: white; box-shadow: 0 4px 14px rgba(199, 140, 107, 0.3); }
+        .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(199, 140, 107, 0.4); }
+        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid transparent; }
+        .btn-ghost:hover { color: var(--primary); background: rgba(82, 121, 111, 0.06); }
+        .btn-lg { padding: clamp(13px, 3vw, 15px) clamp(26px, 5vw, 34px); font-size: clamp(1rem, 2.9vw, 1.08rem); }
+        .btn-full-mobile { width: 100%; max-width: 320px; }
+        
+        /* Hero */
+        .hero { padding: clamp(56px, 11vw, 88px) 0 clamp(44px, 9vw, 64px); text-align: center; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--card); border: 1px solid rgba(82, 121, 111, 0.15);
+            color: var(--primary); padding: 7px 16px; border-radius: 50px;
+            font-weight: 600; font-size: 0.88rem; margin-bottom: 24px;
+        }
+        .hero h2 {
+            font-family: 'Lora', serif; font-size: clamp(2rem, 6.5vw, 3rem); font-weight: 700;
+            line-height: 1.15; margin-bottom: 20px; color: var(--text);
+        }
+        .hero h2 em { color: var(--accent); font-style: normal; }
+        .hero p {
+            font-size: clamp(1.05rem, 3.4vw, 1.22rem); color: var(--text-muted);
+            max-width: 740px; margin: 0 auto 32px; line-height: 1.6;
+        }
+        .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 36px; }
+        .hero-stats {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;
+            padding-top: 24px; border-top: 1px dashed rgba(82, 121, 111, 0.2);
+        }
+        .stat { display: flex; flex-direction: column; align-items: center; min-width: 100px; }
+        .stat-val { font-family: 'Lora', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+        
+        /* Problem/Solution Block */
+        .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 24px; margin: 48px 0; }
+        .compare-card {
+            background: var(--card); border-radius: var(--radius-lg); padding: 28px;
+            border: 1px solid rgba(0,0,0,0.06); box-shadow: var(--shadow-sm);
+        }
+        .compare-card.negative { border-left: 4px solid #e07a5f; }
+        .compare-card.positive { border-left: 4px solid var(--primary); }
+        .compare-card h3 { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; }
+        .compare-list { list-style: none; padding: 0; }
+        .compare-list li {
+            position: relative; padding-left: 22px; margin-bottom: 10px; color: var(--text-muted);
+            font-size: 0.95rem; line-height: 1.5;
+        }
+        .compare-list li::before {
+            position: absolute; left: 0; top: 2px; font-weight: 700;
+        }
+        .negative .compare-list li::before { content: "✕"; color: #e07a5f; }
+        .positive .compare-list li::before { content: "✓"; color: var(--primary); }
+        
+        /* Section */
+        .section { padding: clamp(52px, 11vw, 72px) 0; }
+        .section-header { text-align: center; margin-bottom: clamp(36px, 8vw, 48px); max-width: 680px; margin-left: auto; margin-right: auto; }
+        .section-eyebrow { display: inline-block; font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .section-title { font-family: 'Lora', serif; font-size: clamp(1.7rem, 5vw, 2.3rem); font-weight: 700; margin-bottom: 14px; color: var(--text); }
+        .section-desc { font-size: clamp(1rem, 3vw, 1.12rem); color: var(--text-muted); line-height: 1.65; }
+        
+        /* Features (Tutor Workflow) */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px; }
+        .feature-card {
+            background: var(--card); border-radius: var(--radius); padding: 28px;
+            box-shadow: var(--shadow-sm); transition: var(--transition); border: 1px solid rgba(0,0,0,0.04);
+            display: flex; flex-direction: column; gap: 14px;
+        }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(82, 121, 111, 0.15); }
+        .feature-icon {
+            width: 52px; height: 52px; background: var(--bg-alt); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 6px;
+        }
+        .feature-card h3 { font-family: 'Lora', serif; font-size: 1.25rem; font-weight: 600; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; }
+        
+        /* Installation (Tutor Steps) */
+        .install-wrapper {
+            background: var(--card); border: 1px solid rgba(82, 121, 111, 0.12);
+            border-radius: var(--radius-lg); padding: clamp(32px, 7vw, 44px); box-shadow: var(--shadow);
+        }
+        .install-steps { counter-reset: step; margin: 28px 0; }
+        .install-step {
+            display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+            counter-increment: step;
+        }
+        .install-step:last-child { border-bottom: none; }
+        .install-step::before {
+            content: counter(step); flex-shrink: 0; width: 36px; height: 36px;
+            background: var(--primary); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; box-shadow: 0 3px 10px rgba(82, 121, 111, 0.25);
+        }
+        .step-content h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+        .step-content p, .step-content a { color: var(--text-muted); font-size: 0.95rem; }
+        .step-content a { color: var(--primary); text-decoration: none; font-weight: 500; }
+        .step-content a:hover { text-decoration: underline; }
+        .code-line {
+            background: var(--bg-alt); padding: 10px 14px; border-radius: 8px;
+            font-family: 'SF Mono', monospace; font-size: 0.85rem; color: var(--primary-dark);
+            margin: 10px 0 0; display: inline-block; border: 1px dashed rgba(82, 121, 111, 0.3);
+        }
+        .install-tip {
+            background: rgba(199, 140, 107, 0.1); border: 1px solid rgba(199, 140, 107, 0.3);
+            border-radius: 14px; padding: 18px; margin-top: 24px; font-size: 0.95rem;
+        }
+        .install-tip strong { color: var(--accent); }
+        .install-cta { text-align: center; margin-top: 28px; }
+        
+        /* Use Cases for Tutors */
+        .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 18px; }
+        .usecase-card {
+            background: var(--card); border-radius: var(--radius); padding: 24px;
+            text-align: center; box-shadow: var(--shadow-sm); transition: var(--transition);
+            border-top: 3px solid var(--accent-light);
+        }
+        .usecase-card:hover { transform: translateY(-4px); border-top-color: var(--accent); }
+        .usecase-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+        .usecase-card h4 { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+        .usecase-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.55; }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg); padding: clamp(36px, 8vw, 52px) clamp(22px, 5vw, 36px);
+            text-align: center; color: white; margin: 44px 0; position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; top: -40%; right: -20%; width: 320px; height: 320px;
+            background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+        }
+        .cta-section h3 { font-family: 'Lora', serif; font-size: clamp(1.5rem, 5vw, 2.1rem); font-weight: 700; margin-bottom: 14px; position: relative; }
+        .cta-section p { opacity: 0.95; max-width: 620px; margin: 0 auto 26px; position: relative; }
+        .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 22px; position: relative; }
+        .cta-note { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border-radius: 50px; padding: 11px 22px; font-size: 0.95rem; position: relative; }
+        
+        /* Footer */
+        footer { padding: 44px 0 32px; text-align: center; color: var(--text-light); font-size: 0.9rem; line-height: 1.6; border-top: 1px solid rgba(82, 121, 111, 0.1); margin-top: 40px; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 500; }
+        footer a:hover { text-decoration: underline; color: var(--primary-dark); }
+        .footer-es { margin-top: 22px; padding-top: 20px; border-top: 1px dashed rgba(0,0,0,0.08); font-style: italic; color: var(--accent); font-family: 'Lora', serif; }
+        
+        /* Mobile CTA */
+        .mobile-cta {
+            display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 999;
+            padding: 12px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+            border: 1px solid rgba(82, 121, 111, 0.2); border-radius: 20px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12); animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(80px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .mobile-cta .btn { width: 100%; padding: 14px; }
+        
+        /* Quick Nav */
+        .quick-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 14px; background: var(--bg-alt); border-radius: 16px; margin: 32px 0; border: 1px solid rgba(82, 121, 111, 0.08); }
+        .quick-nav .btn { padding: 9px 16px; font-size: 0.9rem; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 0; }
+            .nav-inner { flex-direction: column; align-items: stretch; text-align: center; }
+            .nav-actions { justify-content: center; }
+            .hero-cta .btn { flex: 1; min-width: 160px; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .cta-buttons .btn { flex: 1; min-width: 180px; }
+        }
+        @media (max-width: 480px) {
+            .hero h2 { font-size: 1.9rem; }
+            .features-grid, .usecase-grid { grid-template-columns: 1fr; }
+            .quick-nav { flex-direction: column; }
+            .quick-nav .btn { width: 100%; }
+        }
+        @media (max-width: 768px) { .mobile-cta { display: block; } .desktop-only { display: none; } }
+        @media (min-width: 769px) { .mobile-only { display: none; } }
+        
+        /* Accessibility */
+        .btn:focus, a:focus { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+        
+        /* Fade-in animation */
+        .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <nav class="navbar" aria-label="Главная навигация">
+        <div class="nav-inner">
+            <a href="#" class="brand">
+                <div class="brand-icon" aria-hidden="true">📖</div>
+                <div class="brand-text">
+                    <h1>Feekool Español</h1>
+                    <p>Пространство для репетитора</p>
+                </div>
+            </a>
+            <div class="nav-actions">
+                <a href="https://feekool.github.io" target="_blank" class="btn btn-outline">🇪🇸 Демо</a>
+                <a href="#install" class="btn btn-ghost">📚 Инструкция</a>
+                <a href="#contact" class="btn btn-primary">✉️ Связаться</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-badge">✨ Специальная конфигурация для преподавателей</div>
+        <h2 id="hero-title">
+            Замените мессенджеры на <em>личный кабинет ученика</em>
+        </h2>
+        <p>Одно пространство для каждого студента или группы. Домашние задания, аудио-практика, трекинг прогресса и профессиональный бренд — за 1 минуту и 0₽.</p>
+        
+        <div class="hero-cta">
+            <a href="https://feekool.github.io" target="_blank" class="btn btn-primary btn-lg btn-full-mobile">👁️ Посмотреть демо</a>
+            <a href="https://github.com/feekool/feekool.github.io" target="_blank" class="btn btn-outline btn-lg btn-full-mobile">📦 Получить шаблон</a>
+        </div>
+        
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-val">1 мин</span><span class="stat-label">Запуск</span></div>
+            <div class="stat"><span class="stat-val">🆓</span><span class="stat-label">Бесплатно</span></div>
+            <div class="stat"><span class="stat-val">📂</span><span class="stat-label">Папки учеников</span></div>
+            <div class="stat"><span class="stat-val">🎓</span><span class="stat-label">Профи-бренд</span></div>
+        </div>
+    </section>
+
+    <!-- Problem vs Solution -->
+    <div class="compare-grid fade-in">
+        <div class="compare-card negative">
+            <h3>❌ Как сейчас: хаос мессенджеров</h3>
+            <ul class="compare-list">
+                <li>Домашка теряется в чатах WhatsApp/Telegram</li>
+                <li>Нет структуры: грамматика, аудио и файлы вперемешку</li>
+                <li>Сложно отследить прогресс и посещаемость</li>
+                <li>Студенты путаются между личными и учебными сообщениями</li>
+                <li>Профессионализм падает: «преподаватель с чатом»</li>
+            </ul>
+        </div>
+        <div class="compare-card positive">
+            <h3>✅ Как с Feekool: рабочее пространство</h3>
+            <ul class="compare-list">
+                <li>Отдельная страница под каждого ученика или группу</li>
+                <li>Чёткие разделы: Уроки, Домашка, Аудио, Прогресс</li>
+                <li>Видимая история: что пройдено, над чем работаем</li>
+                <li>Студенты заходят только для учёбы, концентрация выше</li>
+                <li>Вы выглядите как профессиональная школа, даже работая один</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Quick Nav -->
+    <nav class="quick-nav" aria-label="Быстрые ссылки">
+        <a href="https://feekool.github.io" target="_blank" class="btn btn-ghost">👁️ Демо</a>
+        <a href="#features" class="btn btn-ghost">Возможности</a>
+        <a href="#install" class="btn btn-ghost">Настройка</a>
+        <a href="#usecases" class="btn btn-ghost">Форматы</a>
+    </nav>
+
+    <!-- Features -->
+    <section class="section" id="features" aria-labelledby="features-title">
+        <header class="section-header">
+            <span class="section-eyebrow">Для преподавателя</span>
+            <h2 id="features-title" class="section-title">Инструменты, которые экономят ваше время</h2>
+            <p class="section-desc">Создан так, чтобы вы занимались обучением, а не администрированием чатов.</p>
+        </header>
+        
+        <div class="features-grid">
+            <article class="feature-card fade-in">
+                <div class="feature-icon" aria-hidden="true">📁</div>
+                <h3>Персональные страницы</h3>
+                <p>Создайте поддомен или папку для каждого ученика. «Мария-A2», «Группа-B1-Вторник». У каждого — своя история уроков и ДЗ.</p>
+            </article>
+            <article class="feature-card fade-in">
+                <div class="feature-icon" aria-hidden="true">📝</div>
+                <h3>Домашка без стресса</h3>
+                <p>Публикуете задание в разделе «Práctica». Ученик отвечает в комментариях. Вы проверяете в одном месте, без переключений между приложениями.</p>
+            </article>
+            <article class="feature-card fade-in">
+                <div class="feature-icon" aria-hidden="true">📊</div>
+                <h3>Визуальный прогресс</h3>
+                <p>Отмечайте пройденные темы: Pretérito, Subjuntivo, DELE B2. Ученик видит свой путь — мотивация растёт, оттоки падают.</p>
+            </article>
+            <article class="feature-card fade-in">
+                <div class="feature-icon" aria-hidden="true">🎨</div>
+                <h3>Ваш личный бренд</h3>
+                <p>Добавьте фото, логотип, цвета, подпись. Вы — не анонимный чат, а преподаватель с платформой. Это повышает ценность часа.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Installation (Tutor Workflow) -->
+    <section class="section" id="install" aria-labelledby="install-title">
+        <header class="section-header">
+            <span class="section-eyebrow">Настройка</span>
+            <h2 id="install-title" class="section-title">Как развернуть рабочее место за 5 минут</h2>
+            <p class="section-desc">Если вы умеете заполнять Google-документ, вы справитесь. Технического бэкенда нет.</p>
+        </header>
+        
+        <div class="install-wrapper">
+            <div class="install-steps">
+                <div class="install-step fade-in">
+                    <div class="step-content">
+                        <h4>1. Аккаунт на GitHub</h4>
+                        <p>Зарегистрируйтесь на <a href="https://github.com" target="_blank">github.com</a> (бесплатно, без карты)</p>
+                    </div>
+                </div>
+                <div class="install-step fade-in">
+                    <div class="step-content">
+                        <h4>2. Возьмите готовый шаблон</h4>
+                        <p>Откройте <a href="https://github.com/feekool/feekool.github.io" target="_blank">feekool.github.io</a> → нажмите <strong>"Use this template"</strong> → <strong>"Create a new repository"</strong>. Назовите: <code>mi-profe-espanol</code></p>
+                    </div>
+                </div>
+                <div class="install-step fade-in">
+                    <div class="step-content">
+                        <h4>3. Включите GitHub Pages</h4>
+                        <p>Settings → Pages → Source: <code>main</code> → Save. Через минуту сайт доступен по адресу:</p>
+                        <div class="code-line">https://ваш-ник.github.io/mi-profe-espanol</div>
+                    </div>
+                </div>
+                <div class="install-step fade-in">
+                    <div class="step-content">
+                        <h4>4. Настройте под репетитора</h4>
+                        <p>Откройте файлы в репозитории. Вставьте своё имя, фото, приветствие на испанском. Создайте папки для первых 2–3 учеников. Отправьте им ссылки.</p>
+                    </div>
+                </div>
+                <div class="install-step fade-in">
+                    <div class="step-content">
+                        <h4>5. Работайте</h4>
+                        <p>Загружайте ДЗ, публикуйте грамматические разборы, собирайте ответы. Всё структурировано. Всё сохраняется.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="install-tip">
+                <strong>💡 Совет для репетиторов:</strong> В шаблоне уже есть разделы «Gramática», «Vocabulario», «Tareas», «Progreso». Просто скопируйте папку <code>/alumno-template</code>, переименуйте и отправьте ссылку новому ученику. Масштабируйте без усилий.
+            </div>
+            
+            <div class="install-cta">
+                <a href="https://feekool.github.io" target="_blank" class="btn btn-primary btn-lg" style="margin-bottom: 12px;">👁️ Сначала посмотрите демо</a><br>
+                <a href="https://github.com/feekool/feekool.github.io" target="_blank" class="btn btn-outline btn-lg">📦 Создать свой кабинет</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases for Tutors -->
+    <section class="section" id="usecases" aria-labelledby="usecases-title">
+        <header class="section-header">
+            <span class="section-eyebrow">Форматы работы</span>
+            <h2 id="usecases-title" class="section-title">Под любой стиль преподавания</h2>
+            <p class="section-desc">Адаптируйте платформу под ваш формат, а не наоборот.</p>
+        </header>
+        
+        <div class="usecase-grid">
+            <div class="usecase-card fade-in"><span class="usecase-icon">👤</span><h4>1-на-1 занятия</h4><p>Персональная страница, ДЗ, трекинг ошибок и прогресса</p></div>
+            <div class="usecase-card fade-in"><span class="usecase-icon">👥</span><h4>Мини-группы</h4><p>Общий чат для практики, индивидуальные папки для домашних заданий</p></div>
+            <div class="usecase-card fade-in"><span class="usecase-icon">🎯</span><h4>Подготовка к DELE</h4><p>Разделы по частям экзамена: аудирование, письмо, устная часть</p></div>
+            <div class="usecase-card fade-in"><span class="usecase-icon">🌎</span><h4>Корпоративное обучение</h4><p>Деловая лексика, кейсы, отчеты прогресса для HR</p></div>
+            <div class="usecase-card fade-in"><span class="usecase-icon">🎙️</span><h4>Асинхронный клуб</h4><p>Студенты пишут/записывают аудио в удобное время, вы проверяете</p></div>
+            <div class="usecase-card fade-in"><span class="usecase-icon">📦</span><h4>Курсы-продукты</h4><p>Продажа доступа к готовым модулям + поддержка на платформе</p></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 36px;">
+            <a href="https://feekool.github.io" target="_blank" class="btn btn-accent btn-lg">🎨 Посмотреть готовые конфигурации</a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact" aria-labelledby="cta-title">
+        <h3 id="cta-title">Повысьте ценность ваших уроков</h3>
+        <p>Профессиональная платформа вместо переписок в WhatsApp. Структурируйте обучение, сохраняйте прогресс и привлекайте учеников своим подходом.</p>
+        
+        <div class="cta-buttons">
+            <a href="https://feekool.github.io" target="_blank" class="btn btn-primary btn-lg" style="background: white; color: var(--primary);">👁️ Открыть демо</a>
+            <a href="https://github.com/feekool/feekool.github.io" target="_blank" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white;">📦 Получить шаблон</a>
+            <a href="https://github.com/feekool/feekool.github.io/issues" target="_blank" class="btn btn-outline btn-lg" style="border-color: rgba(255,255,255,0.4); color: white;">💬 Задать вопрос</a>
+        </div>
+        
+        <div class="cta-note">✨ Бесплатная помощь в первой настройке. Напишите — поможем оформить кабинет под ваше имя и формат.</div>
+    </section>
+
+    <!-- Final Links -->
+    <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 36px 0;">
+        <a href="https://feekool.github.io" target="_blank" class="btn btn-primary btn-lg">🎯 Демо</a>
+        <a href="https://feekool.github.io" target="_blank" class="btn btn-outline btn-lg">👁️ Предпросмотр</a>
+        <a href="https://github.com/feekool/feekool.github.io" target="_blank" class="btn btn-ghost btn-lg">🐙 Исходный код</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© Feekool Español — статическая платформа для репетиторов испанского языка.<br>
+        Open-source • Без подписок • Работает на GitHub Pages</p>
+        <p style="margin-top: 14px;">
+            Индивидуальные настройки под ваше имя, логотип и курсы — 
+            <a href="https://feekool.github.io/" target="_blank">связаться с нами</a>
+        </p>
+        <p class="footer-es">"El mejor profesor no es el que дает ответы, а тот, кто учит искать их." — Народная мудрость</p>
+        <p style="margin-top: 18px;">
+            <a href="https://feekool.github.io" target="_blank" style="color: var(--primary); font-weight: 600;">🇪🇸 ¡Empieza a enseñar como un profesional!</a>
+        </p>
+    </footer>
+</div>
+
+<!-- Mobile CTA -->
+<div class="mobile-cta" role="navigation" aria-label="Быстрый доступ">
+    <a href="https://feekool.github.io" target="_blank" class="btn btn-primary">📖 Abrir demo para tutores</a>
+</div>
+
+<!-- JS: Smooth Scroll, Fade-in, Mobile CTA -->
+<script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const href = a.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    
+    // Mobile CTA visibility
+    const mobileCta = document.querySelector('.mobile-cta');
+    if (mobileCta) {
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const current = window.pageYOffset;
+            if (current > 350 && current > lastScroll) {
+                mobileCta.style.transform = 'translateY(0)'; mobileCta.style.opacity = '1';
+            } else if (current < 120) {
+                mobileCta.style.transform = 'translateY(90px)'; mobileCta.style.opacity = '0';
+            }
+            lastScroll = current;
+        }, { passive: true });
+    }
+</script>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Feekool Español para Tutores",
+  "description": "Бесплатная платформа для репетиторов испанского языка. Личные кабинеты учеников, домашние задания, трекинг прогресса, брендинг преподавателя.",
+  "educationalLevel": ["A1", "A2", "B1", "B2", "C1", "DELE"],
+  "inLanguage": ["es", "ru"],
+  "learningResourceType": "TutorWorkspace",
+  "audience": {"@type": "EducationalAudience", "audienceType": "Language Tutors & Private Teachers"},
+  "teaches": ["Spanish language", "Homework management", "Student tracking", "Asynchronous practice"],
+  "url": "https://feekool.github.io",
+  "isAccessibleForFree": true,
+  "keywords": "репетитор испанского, личный кабинет ученика, домашние задания онлайн, платформа для преподавателя, DELE подготовка, GitHub Pages форум"
+}
+</script>
+
+</body>
+</html>
